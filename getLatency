@@ -11,6 +11,7 @@
 % Return values:
 % dAvg: average neighbor discovery latency [s]
 % dMax: worst-case neighbor discovery latency [s]
+%function cut_the_tail() is needed. 
 function [dAvg, dMax] = getLatency(Ta,Ts,dA,ds)
 ds=ds-dA;
 x=0;
