@@ -5,7 +5,7 @@
 %Small errors in calculating floating number may result in errors for
 %ceiling operation. Before ceiling operation, we use this function to
 %correct errors. In brief, if there are five successive "0" in a decimal, we regard 
-%subsequent digits as errors. 
+%subsequent digits as errors. For example, 5.0000002 is regarded as 5.
 
 function [y] = cut_the_tail(x)
 y=x;
