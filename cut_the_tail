@@ -1,0 +1,32 @@
+% Cut-the-tail function.
+
+% Wei Bai <baiweiaeu@163.com>
+
+%Small errors in calculating floating number may result in errors for
+%ceiling operation. Before ceiling operation, we use this function to
+%correct errors. In brief, if there are five successive "0" in a decimal, we regard 
+%subsequent digits as errors. 
+
+function [y] = cut_the_tail(x)
+y=x;
+if x<1
+   i=ceil(log10(1/x));
+else
+   i=1 ;
+end
+flag=0;
+x=x*10^(i-1);
+for i=i:16
+    x=x*10;
+    if mod(round(x),10)==0
+       flag=flag+1; 
+    else
+      flag=0;         
+    end
+    if flag==5
+      y=round(x)/(10^(i));
+        break;
+    end
+end
+end
+
