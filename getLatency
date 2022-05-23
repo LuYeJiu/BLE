@@ -1,0 +1,55 @@
+% Function to compute the average and worst-case latency.
+
+% Wei Bai <361159087@qq.com>
+
+% Parameters:
+% Ta: Advertising interval [s]
+% Ts: Scan interval [s]
+% dA: Length of one advertising packet [s]
+% ds: Scan window [s]
+
+% Return values:
+% dAvg: average neighbor discovery latency [s]
+% dMax: worst-case neighbor discovery latency [s]
+function [dAvg, dMax] = getLatency(Ta,Ts,dA,ds)
+ds=ds-dA;
+x=0;
+if Ta<Ts
+    y=Ts;
+    z=Ta;
+else
+    y=Ts;
+    z=Ta-Ts*ceil(Ta/Ts)+Ts;
+end
+i1=0;
+i2=1;
+N=0;
+%One-to-one match between the varibles in code and the items in paper:
+%i1=i_{N-2},i2=i_{N-1},x=(a_{N-1}+a_{N})c,y=a_{N-1}c,z=a_{N}c,ce=w.
+%%%%Euclidean Division Algorithm
+while (z-ds)>=1e-9
+    x=y;
+    y=z;
+    z=x;
+    times=floor(z/y)+sign(1.0*(((round(z/y)-z/y)<1e-7)&&((round(z/y)-z/y)>0)));
+    z=z-y*times;
+    tmp=i2;
+    i2=i1+times*i2;
+    i1=tmp;
+    N=N+1;
+end
+%%%%
+if ((z<1e-9)&&(z>-1e-9))
+    z=0;
+    dMax=Inf;
+    dAvg=Inf;
+    pps=z;
+else
+    x=y+z;
+    x=cut_the_tail(x);
+    y=cut_the_tail(y);
+    z=cut_the_tail(z);
+    dMax=(i2+i1*accurate_ceil((x-ds)/z)+(i2-i1)*accurate_ceil((y-ds)/z)-1)*Ta+dA;%i1=i_N-2,i2=i_N-1,x=(a_{N-1}+a_N)c,y=a_{N-1}c,z=a_N c,ce=w
+    dAvg=(ds*i2*(i2-1)/(2*Ts)+z*(i1+i2*(accurate_ceil((y-ds)/z)+1)-1)*(i1+i2*(accurate_ceil((y-ds)/z)-1))/(2*Ts)+(y-ds-z*accurate_ceil((y-ds)/z)+z)*(2*i1+i2*(1+2*accurate_ceil((y-ds)/z))-1)*i2/(2*Ts))*Ta+dA;
+end
+end
