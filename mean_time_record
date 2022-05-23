@@ -5,7 +5,7 @@ dA=0;
 TaMin=0.02;
 TaMax=10.24;
 step=650e-6;
-M=50000;
+M=50000;%execute M times to get the mean computation time
 rng(10068);
 
 
