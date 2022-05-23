@@ -1,0 +1,134 @@
+%To record the mean time of calculation using the tic/toc mechanism.
+%
+clear all;
+dA=0;
+TaMin=0.02;
+TaMax=10.24;
+step=650e-6;
+M=50000;
+rng(10068);
+
+
+
+ds=650e-6;
+Ts=[0.1,1,2,3,4,5,6,7,8,9,10,10.24];
+    for (j=1:length(Ts))
+        tend=0;
+        tstart=tic; 
+        for (i=1:M) 
+          for (Ta = TaMin:step:TaMax)
+            [y1,y2]=getLatency(Ta,Ts(j),dA,ds);
+          end
+        end  
+        tend=toc(tstart)
+        MCT_1(j)=tend/(M*(floor((TaMax-TaMin)/step)+1)); 
+        hold on;
+    end 
+    plot(Ts,MCT_1,'bo','LineStyle','-','LineWidth',1);
+    hold on;   
+    
+
+ds=0.01;
+    for (j=1:length(Ts))
+        tend=0;
+        tstart=tic; 
+        for (i=1:M) 
+          for (Ta = TaMin:step:TaMax)
+            [y1,y2]=getLatency(Ta,Ts(j),dA,ds);
+          end
+        end  
+        tend=toc(tstart)
+        MCT_2(j)=tend/(M*(floor((TaMax-TaMin)/step)+1)); 
+    end 
+    plot(Ts,MCT_2,'go','LineStyle','-','LineWidth',1);
+    hold on; 
+
+    
+ds=0.1;
+Ts=[0.1,0.2,1,2,3,4,5,6,7,8,9,10,10.24];
+    for (j=1:length(Ts))
+        tend=0;
+        tstart=tic; 
+        for (i=1:M) 
+          for (Ta = TaMin:step:TaMax)
+            [y1,y2]=getLatency(Ta,Ts(j),dA,ds);
+
+          end
+        end  
+        tend=toc(tstart)
+        MCT_3(j)=tend/(M*(floor((TaMax-TaMin)/step)+1));  
+    end 
+    plot(Ts,MCT_3,'ro','LineStyle','-','LineWidth',1);
+    hold on; 
+     
+
+ds=1;
+Ts=[1,1.1,2,3,4,5,6,7,8,9,10,10.24];
+    for (j=1:length(Ts))
+        tend=0;
+        tstart=tic; 
+        for (i=1:M) 
+          for (Ta = TaMin:step:TaMax)
+            [y1,y2]=getLatency(Ta,Ts(j),dA,ds);
+          end
+        end  
+        tend=toc(tstart)
+        MCT_4(j)=tend/(M*(floor((TaMax-TaMin)/step)+1));
+    end 
+    plot(Ts,MCT_4,'yo','LineStyle','-','LineWidth',1);
+    hold on;  
+    
+    
+ds=2;
+Ts=[2,2.1,3,4,5,6,7,8,9,10,10.24];
+    for (j=1:length(Ts))
+        tend=0;
+        tstart=tic; 
+        for (i=1:M) 
+          for (Ta = TaMin:step:TaMax)
+            [y1,y2]=getLatency(Ta,Ts(j),dA,ds);
+          end
+        end  
+        tend=toc(tstart)
+        MCT_5(j)=tend/(M*(floor((TaMax-TaMin)/step)+1));
+
+    end 
+    plot(Ts,MCT_5,'ko','LineStyle','-','LineWidth',1);
+    hold on;
+    
+    
+    
+ds=4;
+Ts=[4,4.1,5,6,7,8,9,10,10.24];
+    for (j=1:length(Ts))
+        tend=0;
+        tstart=tic; 
+        for (i=1:M) 
+          for (Ta = TaMin:step:TaMax)
+            [y1,y2]=getLatency(Ta,Ts(j),dA,ds); 
+          end
+        end  
+        tend=toc(tstart)
+        MCT_6(j)=tend/(M*(floor((TaMax-TaMin)/step)+1));  
+    end 
+    plot(Ts,MCT_6,'mo','LineStyle','-','LineWidth',1);
+    hold on;   
+   
+    
+ ds=8;
+ Ts=[8,8.1,9,10,10.24];
+    for (j=1:length(Ts))
+        tend=0;
+        tstart=tic; 
+        for (i=1:M) 
+          for (Ta = TaMin:step:TaMax)
+            [y1,y2]=getLatency(Ta,Ts(j),dA,ds); 
+          end
+        end  
+        tend=toc(tstart)
+        MCT_7(j)=tend/(M*(floor((TaMax-TaMin)/step)+1)); 
+    end 
+    plot(Ts,MCT_7,'co','LineStyle','-','LineWidth',1);
+    hold on;    
+    
+    save test_pro.mat;
