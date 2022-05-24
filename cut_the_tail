@@ -1,6 +1,6 @@
 % Cut-the-tail function.
 
-% Wei Bai <baiweiaeu@163.com>
+% Wei Bai <361159087@qq.com>
 
 %Small errors in calculating floating number may result in errors for
 %ceiling operation. Before ceiling operation, we use this function to
