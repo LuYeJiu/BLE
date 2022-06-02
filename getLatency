@@ -28,7 +28,7 @@ N=0;
 %One-to-one match between the varibles in code and the items in paper:
 %i1=i_{N-2},i2=i_{N-1},x=(a_{N-1}+a_{N})c,y=a_{N-1}c,z=a_{N}c,ce=w.
 %%%%Euclidean Division Algorithm
-while (z-ds)>=1e-9
+while (z-ds)>=1e-8
     x=y;
     y=z;
     z=x;
@@ -40,7 +40,7 @@ while (z-ds)>=1e-9
     N=N+1;
 end
 %%%%
-if ((z<1e-9)&&(z>-1e-9))
+if ((z<1e-8)&&(z>-1e-8))
     z=0;
     dMax=Inf;
     dAvg=Inf;
