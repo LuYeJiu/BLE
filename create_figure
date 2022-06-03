@@ -1,6 +1,6 @@
 %create figures
 clear;
-step = 1*0.1;        % steps for increasing Ta
+step = 1*0.001;        % steps for increasing Ta
 Ts = 5.18;             % Scan interval. 
 TaMin = 0;             % Ta to start with
 TaMax = Ts;            % Ta the sweeping ends at
